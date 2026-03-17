@@ -1,92 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sunny Computer CSC Centre</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body {
-    font-family: Arial;
-    margin: 0;
-    background: #f4f6f9;
-}
-header {
-    background: #0b3d91;
-    color: white;
-    padding: 15px;
-    text-align: center;
-}
-h1 { margin: 5px; }
-.container { padding: 20px; }
+body {font-family: Arial; margin:0; background:#f1f5f9;}
+header {background:#0b3d91; color:#fff; text-align:center; padding:15px;}
+.container {padding:20px;}
 
-.services {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:15px;
 }
+
 .card {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #ccc;
+  background:#fff;
+  padding:15px;
+  border-radius:10px;
+  box-shadow:0 0 8px #ccc;
 }
 
 .btn {
-    display: inline-block;
-    padding: 10px 15px;
-    margin: 5px;
-    border-radius: 5px;
-    color: white;
-    text-decoration: none;
+  padding:10px 15px;
+  text-decoration:none;
+  color:white;
+  border-radius:5px;
 }
-.call { background: green; }
-.whatsapp { background: #25D366; }
+.call {background:green;}
+.whatsapp {background:#25D366;}
 
 form {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
+  background:white;
+  padding:15px;
+  border-radius:10px;
 }
 input, textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
+  width:100%;
+  padding:10px;
+  margin:8px 0;
 }
 
 button {
-    background: #0b3d91;
-    color: white;
-    padding: 10px;
-    border: none;
+  background:#0b3d91;
+  color:white;
+  padding:10px;
+  border:none;
 }
 
 footer {
-    text-align: center;
-    padding: 10px;
-    background: #0b3d91;
-    color: white;
+  background:#0b3d91;
+  color:white;
+  text-align:center;
+  padding:10px;
 }
 </style>
 
 <script>
-function submitForm() {
-    let name = document.getElementById("name").value;
-    let mobile = document.getElementById("mobile").value;
-    let service = document.getElementById("service").value;
+function submitForm(){
+  let data = {
+    name: document.getElementById("name").value,
+    mobile: document.getElementById("mobile").value,
+    service: document.getElementById("service").value,
+    status: "Pending"
+  };
 
-    let data = {
-        name: name,
-        mobile: mobile,
-        service: service,
-        status: "Pending"
-    };
+  let list = JSON.parse(localStorage.getItem("cscData")) || [];
+  list.push(data);
+  localStorage.setItem("cscData", JSON.stringify(list));
 
-    let enquiries = JSON.parse(localStorage.getItem("enquiries")) || [];
-    enquiries.push(data);
-    localStorage.setItem("enquiries", JSON.stringify(enquiries));
-
-    alert("Request submitted successfully!");
+  alert("Request Submitted Successfully!");
 }
 </script>
 
@@ -97,145 +81,46 @@ function submitForm() {
 <header>
 <h1>Sunny Computer CSC Centre</h1>
 <p>Government Authorized Common Service Centre</p>
-<p><b>Power to Empower – Digital India</b></p>
+<b>Power to Empower – Digital India</b>
 </header>
 
 <div class="container">
 
 <h2>Our Services</h2>
 
-<div class="services">
+<div class="grid">
 
-<div class="card">
-<h3>PAN Card Services</h3>
-<p>New PAN, Correction, Reprint, PAN-Aadhaar Linking</p>
-</div>
-
-<div class="card">
-<h3>Voter ID Services</h3>
-<p>New Registration, Correction, Address Change</p>
-</div>
-
-<div class="card">
-<h3>Passport Services</h3>
-<p>New Passport, Re-issue, Appointment Booking</p>
-</div>
-
-<div class="card">
-<h3>Ayushman Bharat</h3>
-<p>Registration, Verification, Card Download</p>
-</div>
-
-<div class="card">
-<h3>E-Shram Card</h3>
-<p>Registration, Update, Download</p>
-</div>
-
-<div class="card">
-<h3>Certificates</h3>
-<p>Caste Certificate, Income Certificate</p>
-</div>
-
-<div class="card">
-<h3>Business Services</h3>
-<p>Udyam Registration, Govt Schemes</p>
-</div>
-
-<div class="card">
-<h3>Computer Services</h3>
-<p>Print, Scan, Photocopy, Resume</p>
-</div>
+<div class="card"><b>PAN Card Services</b><br>New PAN, Correction, Reprint, PAN-Aadhaar Linking</div>
+<div class="card"><b>Voter ID Services</b><br>Registration, Correction, Address Change</div>
+<div class="card"><b>Passport Services</b><br>New, Re-issue, Appointment</div>
+<div class="card"><b>Ayushman Bharat</b><br>Registration & Card Download</div>
+<div class="card"><b>E-Shram Card</b><br>Registration & Update</div>
+<div class="card"><b>Certificates</b><br>Caste & Income Certificate</div>
+<div class="card"><b>Business Services</b><br>Udyam, Govt Schemes</div>
+<div class="card"><b>Computer Services</b><br>Print, Scan, Resume</div>
 
 </div>
 
 <h2>Customer Enquiry</h2>
 
 <form onsubmit="event.preventDefault(); submitForm();">
-<input type="text" id="name" placeholder="Your Name" required>
-<input type="number" id="mobile" placeholder="Mobile Number" required>
-<input type="text" id="service" placeholder="Service Required" required>
+<input id="name" placeholder="Your Name" required>
+<input id="mobile" placeholder="Mobile Number" required>
+<input id="service" placeholder="Service Required" required>
 <textarea placeholder="Message"></textarea>
-<button type="submit">Submit Request</button>
+<button type="submit">Submit</button>
 </form>
 
 <br>
 
-<a href="tel:9435091694" class="btn call">📞 Call Now</a>
+<a href="tel:9435091694" class="btn call">📞 Call</a>
 <a href="https://wa.me/918638103439" class="btn whatsapp">💬 WhatsApp</a>
 
 </div>
 
 <footer>
-<p>© 2026 Sunny Computer CSC Centre</p>
+© 2026 Sunny Computer CSC Centre
 </footer>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Admin Panel</title>
-
-<style>
-body { font-family: Arial; background: #f4f6f9; }
-.container { padding: 20px; }
-.card {
-    background: white;
-    padding: 15px;
-    margin: 10px 0;
-}
-button {
-    padding: 8px;
-    margin: 5px;
-    color: white;
-    border: none;
-}
-.approve { background: green; }
-.reject { background: red; }
-</style>
-
-<script>
-function loadData() {
-    let enquiries = JSON.parse(localStorage.getItem("enquiries")) || [];
-    let output = "";
-
-    enquiries.forEach((e, index) => {
-        output += `
-        <div class="card">
-        <b>Name:</b> ${e.name} <br>
-        <b>Mobile:</b> ${e.mobile} <br>
-        <b>Service:</b> ${e.service} <br>
-        <b>Status:</b> ${e.status} <br>
-
-        <button class="approve" onclick="updateStatus(${index}, 'Approved')">Approve</button>
-        <button class="reject" onclick="updateStatus(${index}, 'Rejected')">Reject</button>
-        </div>
-        `;
-    });
-
-    document.getElementById("data").innerHTML = output;
-}
-
-function updateStatus(index, status) {
-    let enquiries = JSON.parse(localStorage.getItem("enquiries"));
-
-    enquiries[index].status = status;
-    localStorage.setItem("enquiries", JSON.stringify(enquiries));
-
-    alert("SMS Sent to Customer: " + status);
-
-    loadData();
-}
-</script>
-
-</head>
-
-<body onload="loadData()">
-
-<div class="container">
-<h2>Admin Panel - CSC Enquiries</h2>
-<div id="data"></div>
-</div>
 
 </body>
 </html>
